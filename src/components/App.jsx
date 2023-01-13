@@ -16,12 +16,6 @@ class App extends Component {
     filter: '',
   };
 
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    this.setState({ [name]: value });
-  };
-
   formSubmit = ({ name, number }) => {
     this.setState(prevState => {
       const checkContact = this.state.contacts.find(
