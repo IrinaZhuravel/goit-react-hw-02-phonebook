@@ -16,17 +16,27 @@ class App extends Component {
     filter: '',
   };
 
+  handleChange = e => {
+    const { name, value } = e.currentTarget;
+
+    this.setState({ [name]: value });
+  };
+
   formSubmit = ({ name, number }) => {
+    const checkContact = this.state.contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+     if (checkContact) {
+        alert(`${name} is already in contacts`);
+        return this.state.contacts;
+      }
     this.setState(prevState => {
-      const checkContact = this.state.contacts.find(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      );
+      // const checkContact = this.state.contacts.find(
+      //   contact => contact.name.toLowerCase() === name.toLowerCase()
+      // );
       const contacts = prevState.contacts;
 
-      if (checkContact) {
-        alert(`${name} is already in contacts`);
-        return contacts;
-      }
+     
       return {
         contacts: [
           {
@@ -40,9 +50,9 @@ class App extends Component {
     });
   };
 
-  filterContacts = name => {
+  filterContacts = () => {
     return this.state.contacts.filter(contact =>
-      contact.name.toLowerCase().includes(name.toLowerCase())
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
   };
 
@@ -61,7 +71,7 @@ class App extends Component {
           <h2>Contacts</h2>
           <Filter onChange={this.handleChange} filter={this.state.filter} />
           <ContactList
-            filterContacts={this.filterContacts(this.state.filter)}
+            filterContacts={this.filterContacts()}
             onClickDelete={this.deleteContact}
           />
         </div>
