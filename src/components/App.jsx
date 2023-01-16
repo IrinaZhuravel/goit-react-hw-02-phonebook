@@ -63,6 +63,7 @@ class App extends Component {
   };
 
   render() {
+    const visibleContacts = this.filterContacts();
     return (
       <Container>
         <div>
@@ -71,7 +72,7 @@ class App extends Component {
           <h2>Contacts</h2>
           <Filter onChange={this.handleChange} filter={this.state.filter} />
           <ContactList
-            filterContacts={this.filterContacts()}
+            filterContacts={visibleContacts}
             onClickDelete={this.deleteContact}
           />
         </div>
